@@ -4,23 +4,25 @@
 {
     //Required. Inputs the module expects.
     "inputs": [
-        //e.g.
-        /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "screen_name",
+            "title":"screen_name"
+        },
+        {
+            "id": "user_id",
+            "title":"user_id"
+        },
+        {
+            "id": "include_entities",
+            "title":"include_entities"
         }
-        */
     ],
     //Required. Outputs the module emits.
     "outputs": [
-      //e.g.
-      /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "accounts_info",
+            "title":"accounts_info"
         }
-      */
     ],
     "title": "Twitter Get Account Info" /* Required.A display name for the module */
 }
