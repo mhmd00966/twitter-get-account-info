@@ -10,20 +10,27 @@ var mapAuthOptionsEnv = {
 
 
 module.exports = {
-    follow: function (authOptions, params, callback) {
+    /**
+     * Send REAS API query.
+     *
+     * @param authOptions
+     * @param params
+     * @param callback
+     */
+    twitterQuery: function (authOptions, params, callback) {
         var twitter = new Twit(authOptions);
 
         // Get accounts info
         twitter.get('users/lookup', params, callback);
     },
+
     /**
-     * Returns fully-hydrated user objects for up to 100 users per request,
-     * as specified by comma-separated values passed to the user_id and/or screen_name parameters.
+     * Get Auth options from Environment.
      *
-     * @param {AppStep} step Accessor for the configuration for the step using this module.  Use step.input('{key}') to retrieve input data.
-     * @param {AppData} dexter Container for all data used in this workflow.
+     * @param dexter
+     * @returns {{}}
      */
-    run: function(step, dexter) {
+    authOptions: function (dexter) {
         // twitter auth property
         var authOptions = {};
 
@@ -37,7 +44,19 @@ module.exports = {
             }
         }, this);
 
-        this.follow(authOptions, step.inputs(), function (error, accountsInfo) {
+        return authOptions;
+    },
+
+    /**
+     * Returns fully-hydrated user objects for up to 100 users per request,
+     * as specified by comma-separated values passed to the user_id and/or screen_name parameters.
+     *
+     * @param {AppStep} step Accessor for the configuration for the step using this module.  Use step.input('{key}') to retrieve input data.
+     * @param {AppData} dexter Container for all data used in this workflow.
+     */
+    run: function(step, dexter) {
+
+        this.twitterQuery(this.authOptions(dexter), step.inputs(), function (error, accountsInfo) {
             if (error) {
                 // if error - send message
                 this.fail(error);
