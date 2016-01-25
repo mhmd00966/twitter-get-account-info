@@ -24,6 +24,9 @@
             "title":"accounts_info"
         }
     ],
+    "providers": [{
+        "name": "twitter"
+    }],
     "icon": "twitter",
     "title": "Twitter Get Account Info" /* Required.A display name for the module */
 }
